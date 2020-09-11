@@ -7,9 +7,10 @@ output: github_document
 ## Problem 1
 ```{r}
 library(tidyverse)
+set.seed(1357)
 df=tibble(samp=rnorm(10),vec_logic=samp>0,
           vec_cha="characters",vec_fac=factor(c(1,1,1,1,2,2,2,3,3,3),
-                                              labels=c("1","2","3")))  #create the dataframe
+                                              labels=c("1","2","3")))  # Create the dataframe
 mean(df$samp)
 mean(df$vec_logic) # mean() function works for the random sample and logical vector,but not for character and factor.
 mean(df$vec_cha)
@@ -17,8 +18,9 @@ mean(df$vec_fac)
 ```
 ```{r,eval=FALSE}
 as.numeric(df$vec_cha)
-as.numeric(df$vec_fac)# all values return NA because every element in character and factor vectors does not have a corresponding number,
-#while FALSE represent 0 and TRUE represent 1 in logical vectors. It also explain why I can not take the mean of characters and factors.
+as.numeric(df$vec_fac)
+# All values return NA because every element in character and factor vectors does not have a corresponding number,while FALSE represent 0 and TRUE represent 1 in logical vectors. 
+# It also explains why we can not take the mean of characters and factors.
 ```
 
 ```{r}
@@ -31,12 +33,14 @@ as.numeric(as.factor(df$vec_logic))*df$samp
 ```{r}
 library(ggplot2)
 data("penguins",package = "palmerpenguins")
-head(penguins) # Species,island and sex are factor variables.Bill_length_mm,bill_depth_mm,flipper_length_mm,body_mass_g and year are numeric variables.
+head(penguins) 
+# Species,island and sex are factor variables.
+# Bill_length_mm,bill_depth_mm,flipper_length_mm,body_mass_g and year are numeric variables.
 nrow(penguins)
-ncol(penguins) # the dataset is consists of 8 variables with 344 rows(observations).
-penguins<-na.omit(penguins) # remove NA values to calculate the mean.
-mean(penguins$flipper_length_mm) #the mean flipper length is 200.967 mm.
-firstplot<-ggplot(penguins,aes(x=bill_length_mm,y=flipper_length_mm,color=species))+geom_point() # create the scatter plot
+ncol(penguins) # The dataset is consists of 8 variables with 344 rows(observations).
+penguins<-na.omit(penguins) # Remove NA values to calculate the mean.
+mean(penguins$flipper_length_mm) # The mean flipper length is 200.967 mm.
+firstplot<-ggplot(penguins,aes(x=bill_length_mm,y=flipper_length_mm,color=species))+geom_point() # Create the scatter plot
 firstplot
-ggsave("firstplot.png",width = 5, height = 5) # use ggsave() to export the plot.
+ggsave("firstplot.png",width = 5, height = 5) # Use ggsave() to export the plot.
 ```
